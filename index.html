@@ -66,7 +66,8 @@ img,video{max-width:100%;display:block}
 .qtyp{flex:1;background:#fff;border:2px solid transparent;border-radius:16px;padding:14px 8px 12px;text-align:center;cursor:pointer;position:relative;transition:border-color .15s,background .15s}
 .qtyp b{display:block;font-size:15px;font-weight:800;color:var(--ink)}
 .qtyp span{display:block;font-size:13px;color:var(--muted);margin-top:3px}
-.qtyp i{position:absolute;top:-9px;right:8px;background:var(--orange);color:#fff;font-style:normal;font-size:11px;font-weight:800;padding:3px 7px;border-radius:999px}
+.qtyp i{position:absolute;top:-9px;left:50%;transform:translateX(-50%);white-space:nowrap;background:var(--orange);color:#fff;font-style:normal;font-size:11px;font-weight:800;padding:3px 9px;border-radius:999px}
+.qtyp i.base{background:#fff;color:var(--muted);border:1.5px solid var(--blue)}
 .qtyp.on{border-color:var(--orange);background:#FFF6EF}
 .qtyp.on b{color:var(--orange)}
 .qty-hint{font-size:13px;color:var(--muted);margin:-14px 0 20px}
@@ -327,9 +328,9 @@ footer a{color:var(--muted)}
   <p style="font-size:14.5px;color:var(--muted)">Залиш ім'я і номер — менеджер зателефонує, уточнить колір і відділення Нової Пошти. Оплата при отриманні.</p>
   <p class="pick-label">Скільки береш:</p>
   <div class="qty-picks" id="qtyPicks">
-    <div class="qtyp on" data-q="1" data-price="349"><b>1 шт</b><span>349₴</span></div>
-    <div class="qtyp" data-q="2" data-price="628"><b>2 шт</b><span>628₴</span><i>−10%</i></div>
-    <div class="qtyp" data-q="3" data-price="838"><b>3 шт</b><span>838₴</span><i>−20%</i></div>
+    <div class="qtyp on" data-q="1" data-price="349"><i class="base">База</i><b>1 шт</b><span>349₴/шт</span></div>
+    <div class="qtyp" data-q="2" data-price="628"><i>Вигідно</i><b>2 шт</b><span>314₴/шт</span></div>
+    <div class="qtyp" data-q="3" data-price="838"><i>Вигідно</i><b>3 шт</b><span>279₴/шт</span></div>
   </div>
   <form id="orderForm" novalidate>
     <label for="fName">Ім'я</label>
