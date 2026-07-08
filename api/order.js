@@ -2,12 +2,15 @@
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { name, phone, color } = req.body || {};
+  const { name, phone, color, qty, amount } = req.body || {};
   if (!name || !phone) return res.status(400).json({ error: 'Missing fields' });
 
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
   if (!token || !chatId) return res.status(500).json({ error: 'Bot not configured' });
+
+  const qtyNum = Number(qty) || 1;
+  const amountNum = Number(amount) || 379;
 
   const text = [
     '🥤 <b>Лід — лендинг Fresh Juice</b>',
@@ -15,9 +18,10 @@ export default async function handler(req, res) {
     `👤 ${name}`,
     `📞 ${phone}`,
     `🎨 Колір на лендингу: ${color || 'Білий'}`,
+    `🎁 Кількість: ${qtyNum} шт`,
     '',
     '☎️ Зателефонувати, підтвердити колір і відділення НП',
-    '💰 379₴ · оплата при отриманні',
+    `💰 ${amountNum}₴ · оплата при отриманні`,
   ].filter(Boolean).join('\n');
 
   const r = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
