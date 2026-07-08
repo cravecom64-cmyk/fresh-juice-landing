@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   if (!token || !chatId) return res.status(500).json({ error: 'Bot not configured' });
 
   const qtyNum = Number(qty) || 1;
-  const amountNum = Number(amount) || 379;
+  const amountNum = Number(amount) || 349;
 
   const text = [
     '🥤 <b>Лід — лендинг Fresh Juice</b>',
