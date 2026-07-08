@@ -62,6 +62,15 @@ img,video{max-width:100%;display:block}
 .pick.on{border-color:var(--orange);opacity:1}
 .pick.on p{color:var(--orange)}
 
+.qty-picks{display:flex;gap:10px;margin:8px 0 22px}
+.qtyp{flex:1;background:#fff;border:2px solid transparent;border-radius:16px;padding:14px 8px 12px;text-align:center;cursor:pointer;position:relative;transition:border-color .15s,background .15s}
+.qtyp b{display:block;font-size:15px;font-weight:800;color:var(--ink)}
+.qtyp span{display:block;font-size:13px;color:var(--muted);margin-top:3px}
+.qtyp i{position:absolute;top:-9px;right:8px;background:var(--orange);color:#fff;font-style:normal;font-size:11px;font-weight:800;padding:3px 7px;border-radius:999px}
+.qtyp.on{border-color:var(--orange);background:#FFF6EF}
+.qtyp.on b{color:var(--orange)}
+.qty-hint{font-size:13px;color:var(--muted);margin:-14px 0 20px}
+
 /* CTA */
 .cta{display:block;width:100%;background:var(--orange);color:#fff;text-align:center;padding:18px;font-size:18px;font-weight:800;font-family:'Nunito';border:none;border-radius:999px;cursor:pointer;text-decoration:none;box-shadow:0 10px 26px rgba(210,44,84,.32);transition:background .15s}
 .cta:hover{background:var(--orange-hot)}
@@ -313,18 +322,27 @@ footer a{color:var(--muted)}
     <li>Нова Пошта по Україні, 1–2 дні</li>
     <li>14 днів на обмін чи повернення</li>
   </ul>
+  <p style="font-weight:800;color:var(--orange);margin:14px 0 4px">🎁 Береш для подруги? 2 шт — 682₴, 3 шт — 910₴</p>
   <a class="cta" href="#order">Оформити замовлення</a>
 </section>
 
 <section id="order" style="padding-top:20px">
   <h2>Замовлення</h2>
   <p style="font-size:14.5px;color:var(--muted)">Залиш ім'я і номер — менеджер зателефонує, уточнить колір і відділення Нової Пошти. Оплата при отриманні.</p>
+  <p class="pick-label">Скільки береш:</p>
+  <div class="qty-picks" id="qtyPicks">
+    <div class="qtyp on" data-q="1" data-price="379"><b>1 шт</b><span>379₴</span></div>
+    <div class="qtyp" data-q="2" data-price="682"><b>2 шт</b><span>682₴</span><i>−10%</i></div>
+    <div class="qtyp" data-q="3" data-price="910"><b>3 шт</b><span>910₴</span><i>−20%</i></div>
+  </div>
   <form id="orderForm" novalidate>
     <label for="fName">Ім'я</label>
     <input id="fName" name="name" autocomplete="name" required placeholder="Марія">
     <label for="fPhone">Номер телефону</label>
     <input id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="+380 __ ___ __ __">
     <input type="hidden" id="fColor" name="color" value="Рожевий">
+    <input type="hidden" id="fQty" name="qty" value="1">
+    <input type="hidden" id="fAmount" name="amount" value="379">
     <div style="height:22px"></div>
     <button class="cta" type="submit" id="submitBtn">Підтвердити замовлення — 379₴</button>
     <p class="cta-note">Натискаючи кнопку, ти погоджуєшся на обробку даних для доставки</p>
@@ -380,6 +398,17 @@ document.querySelectorAll('.pick').forEach(d=>{
   });
 });
 ['img/bottle-white.jpg','img/bottle-blue.jpg'].forEach(s=>{new Image().src=s;});
+const QTY_PRICE={1:379,2:682,3:910};
+document.querySelectorAll('.qtyp').forEach(d=>{
+  d.addEventListener('click',()=>{
+    document.querySelectorAll('.qtyp').forEach(x=>x.classList.remove('on'));
+    d.classList.add('on');
+    const q=d.dataset.q, price=d.dataset.price;
+    document.getElementById('fQty').value=q;
+    document.getElementById('fAmount').value=price;
+    document.getElementById('submitBtn').textContent=`Підтвердити замовлення — ${price}₴`;
+  });
+});
 (function(){
   const track=document.getElementById('revCarousel');
   if(!track)return;
@@ -492,7 +521,7 @@ form.addEventListener('submit',async e=>{
     form.style.display='none';
     document.getElementById('formOk').style.display='block';
   }catch(_){
-    btn.disabled=false;btn.textContent='Підтвердити замовлення — 379₴';
+    btn.disabled=false;btn.textContent=`Підтвердити замовлення — ${document.getElementById('fAmount').value}₴`;
     alert('Не вдалося відправити. Напиши нам у Telegram: @multimarket_ua');
   }
 });
