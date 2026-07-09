@@ -20,8 +20,8 @@ export default async function handler(req, res) {
     `🎨 Колір на лендингу: ${color || 'Білий'}`,
     `🎁 Кількість: ${qtyNum} шт`,
     '',
-    '☎️ Зателефонувати, підтвердити колір і відділення НП',
-    `💰 ${amountNum}₴ · оплата при отриманні`,
+    '☎️ Зателефонувати, підтвердити колір, відділення НП і оплату',
+    `💰 ${amountNum}₴`,
   ].filter(Boolean).join('\n');
 
   const r = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
