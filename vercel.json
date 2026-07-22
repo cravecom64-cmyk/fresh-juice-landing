@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "destination": "https://multi-market.com.ua/product/blender-fresh-juice-portatyvnyy",
+      "permanent": true
+    }
+  ]
+}
